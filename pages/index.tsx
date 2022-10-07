@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import { fetchPokemonDetails } from "./api/getPokemons";
-import { Pokemon } from "../interfaces/abilities";
+import { Pokemon, PokemonDetails } from "../interfaces/abilities";
 import PokemonCards from "../components/PokemonCards";
+import axios from "axios";
 
 interface Result {
   name: string;
@@ -42,9 +43,22 @@ const Home: NextPage = () => {
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState<string[]>([]);
   console.log(pokemon);
-  if (!pokemon) return null
+  if (!pokemon) return null;
 
-
+  // useEffect(() => {
+  //   const getPokemons = async () => {
+  //     const res = await axios.get("https://pokeapi.co/api/v2/pokemon");
+  //     // setNextUrl(res.data.next);
+  //     res.data.results.forEach(async (pokemon: Result) => {
+  //       const poke = await axios.get(
+  //         `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+  //       );
+  //       setPokemon((p) => [...p, poke.data]);
+  //       // setLoading(false);
+  //     });
+  //   };
+  //   getPokemons();
+  // }, []);
 
   const searchedPokemon = [...pokemon.results].filter((data) => {
     return search.length === 0
@@ -68,7 +82,7 @@ const Home: NextPage = () => {
     setPokemon(nextPokemon);
   };
 
-//  const getPokemonType = fetchPokemonDetails(pokemon.results.name).then((res) => res.json().then((pok) => pok.forEach(())))
+  //  const getPokemonType = fetchPokemonDetails(pokemon.results.name).then((res) => res.json().then((pok) => pok.forEach(())))
 
   return (
     <div className={styles.container}>

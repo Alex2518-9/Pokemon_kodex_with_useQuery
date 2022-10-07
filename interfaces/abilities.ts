@@ -47,3 +47,11 @@ export interface Pokemon{
     types: Types,
     weight: number
 }
+
+export interface PokemonDetails {
+    id: number,
+    name: string,
+    sprites: {
+        front_default: string
+    }
+}
